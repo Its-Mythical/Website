@@ -24,8 +24,8 @@ document.addEventListener('mousemove',function(e){
     t.style.cssText='width:'+s+'px;height:'+s+'px;left:'+mx+'px;top:'+my+'px;';
     document.body.appendChild(t);setTimeout(function(){if(t.parentNode)t.remove();},800);
   }
-  var el=document.elementFromPoint(mx,my);
-  if(cur)cur.classList.toggle('h',!!(el&&(el.closest('a')||el.closest('button')||el.closest('.mp-play-wrap'))));
+  var hoverEl=document.elementFromPoint(mx,my);
+  if(cur)cur.classList.toggle('h',!!(hoverEl&&(hoverEl.closest('a')||hoverEl.closest('button')||hoverEl.closest('.mp-play-wrap'))));
 });
 
 /* PARALLAX — disabled on touch devices to prevent bg distortion */
@@ -39,7 +39,8 @@ if(!isTouchDevice){
 }
 
 /* THREE.JS */
-if(typeof THREE==='undefined'){console.warn('Three.js not loaded');var renderer=null;}else{
+var renderer=null;
+if(typeof THREE!=='undefined'){
 var renderer=new THREE.WebGLRenderer({canvas:el('threeCanvas'),alpha:true,antialias:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.setSize(innerWidth,innerHeight);
@@ -124,21 +125,7 @@ document.addEventListener('click',function(e){
 });
 
 /* COUNTER */
-/* counter: wait for loader to finish then count up */
-setTimeout(function(){
-  var el=el('pct');
-  if(!el)return;
-  el.textContent='0%';
-  var start=performance.now();
-  var dur=1800;
-  function step(now){
-    var p=Math.min((now-start)/dur,1);
-    el.textContent=Math.floor(p*100)+'%';
-    if(p<1)requestAnimationFrame(step);
-    else el.textContent='100%';
-  }
-  requestAnimationFrame(step);
-},2200);
+/* counter removed */
 
 /* SCROLL */
 var hint=el('sHint'),tb=el('topBtn');
@@ -250,14 +237,21 @@ document.querySelectorAll('.stats,.btns,.socials,.hero-copy').forEach(function(e
   var mpEl = el('mp');
   if(togBtn&&mpEl){
     togBtn.addEventListener('click', function() {
-      mpEl.classList.toggle('mp-open');
+      if(mpEl.classList.contains('mp-open')){
+        mpEl.classList.remove('mp-open');
+        mpEl.classList.add('mp-closing');
+        setTimeout(function(){mpEl.classList.remove('mp-closing');},300);
+      }else{
+        mpEl.classList.remove('mp-closing');
+        mpEl.classList.add('mp-open');
+      }
       togBtn.classList.toggle('active');
     });
   }
 
   /* seek buttons ±10s */
-  el('mpSeekB').addEventListener('click',function(){aud.currentTime=Math.max(0,aud.currentTime-10);});
-  el('mpSeekF').addEventListener('click',function(){aud.currentTime=Math.min(aud.duration||0,aud.currentTime+10);});
+  var seekB=el('mpSeekB');if(seekB)seekB.addEventListener('click',function(){aud.currentTime=Math.max(0,aud.currentTime-10);});
+  var seekF=el('mpSeekF');if(seekF)seekF.addEventListener('click',function(){aud.currentTime=Math.min(aud.duration||0,aud.currentTime+10);});
 })();
 
 })();
