@@ -48,8 +48,6 @@ body{font-family:'Inter',sans-serif;min-height:100vh;max-width:100vw;overflow-x:
 #loader{position:fixed;inset:0;z-index:9999;background:#040d14;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:1;}
 
-
-}
 .l-rule{width:0;height:1px;margin:20px auto 14px;
   background:linear-gradient(90deg,transparent,rgba(168,223,240,.6),transparent);
   animation:ruleW 1s .9s ease forwards;}
@@ -117,22 +115,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 .hero-copy{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
   font-size:clamp(16px,2.4vw,21px);line-height:1.75;color:rgba(255,255,255,.5);max-width:440px;
   opacity:0;animation:fUp .7s 1.4s forwards;margin-bottom:56px;}
-.stats{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
-  margin-bottom:56px;perspective:1000px;opacity:0;animation:fUp .8s 2.4s forwards;}
+.stats{display:flex;gap:0;flex-wrap:nowrap;justify-content:center;
+  margin-bottom:56px;perspective:1000px;opacity:0;animation:fUp .8s 2.4s forwards;
+  background:rgba(240,248,255,.04);border:1px solid rgba(168,223,240,.12);
+  border-radius:16px;overflow:hidden;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
 .card3d{position:relative;padding:28px 36px;text-align:center;
-  background:rgba(240,248,255,.05);border:1px solid rgba(168,223,240,.15);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  transform-style:preserve-3d;min-width:130px;
-  transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s,border-color .4s;}
-.card3d::before{content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(168,223,240,.1) 0%,transparent 60%);pointer-events:none;}
+  background:transparent;border:none;border-right:1px solid rgba(168,223,240,.08);
+  transform-style:preserve-3d;min-width:130px;flex:1;
+  transition:background .3s,box-shadow .4s;}
+.card3d:last-child{border-right:none;}
+.card3d:hover{background:rgba(168,223,240,.06);}
+.card3d::before{display:none;
+  background:linear-gradient(135deg,rgba(168,223,240,.06) 0%,transparent 60%);pointer-events:none;}
 .card3d-n{font-family:'Inter',sans-serif;font-weight:800;font-size:46px;letter-spacing:-2px;
-  line-height:1;color:var(--white);display:block;transform:translateZ(20px);
-  text-shadow:0 4px 30px rgba(168,223,240,.4);transition:transform .4s,text-shadow .4s;}
+  line-height:1;color:var(--white);display:block;
+  text-shadow:0 4px 30px rgba(168,223,240,.4);transition:text-shadow .4s;}
 .card3d-l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;
-  color:rgba(168,223,240,.5);margin-top:8px;display:block;transform:translateZ(10px);}
-.card3d:hover{box-shadow:0 30px 60px rgba(4,13,20,.5),0 0 40px rgba(168,223,240,.12);border-color:rgba(168,223,240,.35);}
-.card3d:hover .card3d-n{transform:translateZ(40px);text-shadow:0 4px 40px rgba(168,223,240,.8);}
+  color:rgba(168,223,240,.5);margin-top:8px;display:block;}
+.card3d:hover .card3d-n{text-shadow:0 4px 40px rgba(168,223,240,.8);}
 .btns{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;
   opacity:0;animation:fUp .7s 2.6s forwards;}
 .btn{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.35em;
@@ -201,11 +201,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
     inset -1px 0  0 rgba(255, 255, 255, 0.10);    /* right edge */
 
   padding: 12px 14px 11px;
-  /* no animation ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â player only appears on toggle click */
+  /* --- */
   transition: transform .35s cubic-bezier(.16,1,.3,1),
               box-shadow .35s, filter .35s, opacity .35s, visibility 0s .35s;
   overflow: hidden;
-  /* hidden by default ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â only shown via .mp-open */
+  /* --- */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -219,7 +219,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
   transition-delay: 0s;
 }
 
-/* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â°ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âµ Music Toggle Button */
+/* --- */
 #musicToggle {
   position: fixed;
   bottom: 24px; left: 24px;
@@ -262,7 +262,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
   transform: translateX(290px) scale(1.12);
 }
 
-/* Top gloss sheen ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â specular reflection simulation */
+/* --- */
 #mp::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 46%;
@@ -292,10 +292,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 
 #mp:hover {
   transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 18px 42px rgba(0,0,0,0.45), inset 0 1.5px 0 rgba(255,255,255,0.50), inset 0 -1px 0 rgba(0,0,0,0.14);
-  box-shadow:
+  box-shadow: 0 18px 42px rgba(0,0,0,0.45),
     inset 0 1.5px 0 rgba(255,255,255,0.50),
-    inset 0 -1px  0 rgba(0,0,0,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.14),
     inset 1px 0 0 rgba(255,255,255,0.18),
     inset -1px 0 0 rgba(255,255,255,0.13);
 }
@@ -306,7 +305,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 
 
 
-/* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ progress bar ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ */
+/* --- */
 .mp-prog { margin-bottom:5px; margin-top:4px; }
 .mp-bar {
   width:100%; height:4px;
@@ -336,7 +335,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 .mp-times { display:flex; justify-content:space-between; margin-top:4px; }
 .mp-times span { font-size:8px; letter-spacing:.1em; color:rgba(255,255,255,.3); }
 
-/* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ controls ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ */
+/* --- */
 .mp-ctrl {
   display:flex; align-items:center; justify-content:center; gap:14px;
   margin-top:9px; padding:0 2px;
@@ -349,7 +348,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 .mp-ic:hover { color:rgba(255,255,255,.88); transform:scale(1.2); }
 .mp-ic.active { color:#38f5c8 !important; }
 
-/* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ glass play circle ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚ÂÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ */
+/* --- */
 .mp-play-wrap {
   width:40px; height:40px; border-radius:50%;
   /* nested glass circle inside the glass panel */
@@ -455,7 +454,7 @@ body.light .theme-toggle{background:rgba(245,158,11,.1);border-color:rgba(245,15
 body.light .theme-toggle:hover{border-color:rgba(245,158,11,.6);box-shadow:0 0 16px rgba(245,158,11,.2);}
 
 /* === SMOOTH TRANSITIONS === */
-body,#bgGrad,nav,.card3d,.card3d-n,.card3d-l,.btn-p,.btn-s,.soc-i,.soc-l,.soc-d,.soc-sep,
+body,nav,.card3d,.card3d-n,.card3d-l,.btn-p,.btn-s,.soc-i,.soc-l,.soc-d,.soc-sep,
 .eyebrow,.hero-copy,.h-rule-l,.sh-txt,footer,footer p,footer span,
 #topBtn,#musicToggle,#mp,.mp-bar,.mp-times span,.mp-ic,.mp-play-wrap,.nav-logo,.nav-logo b,
 .nav-links a,.word span,.italic span,.l-sub,.e-dash,.mp-play-icon{
@@ -477,8 +476,9 @@ body.light .hero-title .word span{color:#1a2332;}
 body.light .italic span{-webkit-text-stroke:1.5px rgba(14,127,168,.45);}
 body.light .h-rule-l{background:linear-gradient(90deg,transparent,rgba(14,127,168,.15),transparent);}
 body.light .hero-copy{color:rgba(26,35,50,.45);}
-body.light .card3d{background:rgba(14,127,168,.04);border-color:rgba(14,127,168,.12);}
-body.light .card3d::before{background:linear-gradient(135deg,rgba(14,127,168,.06) 0%,transparent 60%);}
+body.light .stats{background:rgba(14,127,168,.03);border-color:rgba(14,127,168,.1);}
+body.light .card3d{border-right-color:rgba(14,127,168,.08);background:transparent;}
+
 body.light .card3d:hover{box-shadow:0 20px 50px rgba(0,0,0,.08),0 0 30px rgba(14,127,168,.08);border-color:rgba(14,127,168,.3);}
 body.light .card3d-n{color:#1a2332;text-shadow:0 2px 20px rgba(14,127,168,.15);}
 body.light .card3d:hover .card3d-n{text-shadow:0 4px 30px rgba(14,127,168,.3);}
@@ -594,7 +594,7 @@ body.light .vid-channel{color:rgba(14,127,168,.45);}
   0%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
   100%{opacity:0;transform:translateY(20px) scale(.88);filter:blur(6px);}
 }
-#mp{animation:mpSlideOut .3s ease forwards;}
+#mp.mp-closing{animation:mpSlideOut .3s ease forwards;pointer-events:none;}
 #mp.mp-open{animation:mpSlideIn .5s cubic-bezier(.16,1,.3,1) forwards;visibility:visible;pointer-events:auto;}
 #mp.mp-open .mp-prog{opacity:0;animation:mpChildIn .4s .15s cubic-bezier(.16,1,.3,1) forwards;}
 #mp.mp-open .mp-ctrl{opacity:0;animation:mpChildIn .4s .25s cubic-bezier(.16,1,.3,1) forwards;}
@@ -626,7 +626,7 @@ body.light .nav-avatar:hover{border-color:rgba(14,127,168,.5);box-shadow:0 0 12p
     -webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
   #bgImg{-webkit-transform:none !important;transform:none !important;
     width:calc(100% + 20px);height:calc(100% + 20px);top:-10px;left:-10px;}
-  #bgGrad{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
+
   #threeCanvas{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
   html{-webkit-overflow-scrolling:touch;}
   body{-webkit-overflow-scrolling:touch;overscroll-behavior-y:none;}
@@ -714,8 +714,7 @@ body.light .nav-avatar:hover{border-color:rgba(14,127,168,.5);box-shadow:0 0 12p
 ⠀⠀⠀⠀⠀⠻⣥⣤⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀</pre><div class="h-rule-l"></div></div>
     <p class="hero-copy">Where we are both friends and partners in crime.<br>Welcome to the official home of our Community.</p>
     <div class="stats">
-      <div class="card3d"><span class="card3d-n">&#8734;</span><span class="card3d-l">Videos</span></div>
-      <div class="card3d"><span class="card3d-n" id="pct">0%</span><span class="card3d-l">Mythical</span></div>
+      <div class="card3d"><span class="card3d-n">5</span><span class="card3d-l">Videos</span></div>
       <div class="card3d"><span class="card3d-n">24/7</span><span class="card3d-l">Creating</span></div>
     </div>
     <div class="btns">
