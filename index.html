@@ -85,7 +85,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 
 /* PAGE */
 #page{position:relative;z-index:2;}
-.hero{min-height:100vh;display:flex;flex-direction:column;
+.hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;
   padding:120px 24px 100px;position:relative;}
 .eyebrow{font-size:9px;letter-spacing:.6em;text-transform:uppercase;
@@ -256,10 +256,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;
 #musicToggle.active { border-color: rgba(56,245,200,.35); }
 /* shift toggle button right when player is open */
 #musicToggle.active {
-  transform: translateX(290px);
+  transform: 
 }
 #musicToggle.active:hover {
-  transform: translateX(290px) scale(1.12);
+  transform:  scale(1.12);
 }
 
 /* --- */
@@ -391,7 +391,7 @@ footer span{color:rgba(168,223,240,.35);}
 @keyframes fUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 @media (max-width: 1024px) {
   .hero-title { font-size: clamp(52px, 11vw, 120px); }
-  .stats { gap: 16px; }
+
   .card3d { padding: 24px 28px; }
 }
 
@@ -403,12 +403,15 @@ footer span{color:rgba(168,223,240,.35);}
 @media (max-width: 600px) {
   .hero { padding: 100px 20px 80px; }
   nav { padding: 18px 20px; }
-  .nav-links { display: none; }
+
   .hero-title { font-size: clamp(42px, 10vw, 80px); }
   .hero-copy { font-size: 15px; margin-bottom: 32px; padding: 0 10px; }
-  .stats { gap: 10px; }
+
   .card3d { padding: 16px 20px; min-width: 90px; }
   .card3d-n { font-size: 30px; }
+  .stats{flex-wrap:wrap;border-radius:12px;}
+  .card3d{border-right:none;border-bottom:1px solid rgba(168,223,240,.08);flex:1 1 40%;}
+  .card3d:last-child{border-bottom:none;}
   .card3d-l { font-size: 8px; }
   .btn { padding: 12px 32px; }
   .socials { gap: 20px; }
@@ -482,6 +485,13 @@ body.light .card3d{border-right-color:rgba(14,127,168,.08);background:transparen
 body.light .card3d:hover{box-shadow:0 20px 50px rgba(0,0,0,.08),0 0 30px rgba(14,127,168,.08);border-color:rgba(14,127,168,.3);}
 body.light .card3d-n{color:#1a2332;text-shadow:0 2px 20px rgba(14,127,168,.15);}
 body.light .card3d:hover .card3d-n{text-shadow:0 4px 30px rgba(14,127,168,.3);}
+body.light #aboutSection p{color:rgba(26,35,50,.65) !important;}
+body.light #aboutSection .section-title{color:rgba(26,35,50,.85);}
+body.light #aboutSection .section-eyebrow span{color:rgba(14,127,168,.6);}
+body.light #aboutSection img{border-color:rgba(14,127,168,.15);}
+body.light .h-rule pre{color:rgba(26,35,50,.45) !important;}
+body.light #bgWrap::after{background:linear-gradient(180deg,rgba(240,244,248,.8) 0%,rgba(240,244,248,.3) 30%,rgba(240,244,248,.85) 100%);}
+
 body.light .card3d-l{color:rgba(14,127,168,.5);}
 body.light .btn-p{color:#1a2332;background:rgba(14,127,168,.06);border-color:rgba(14,127,168,.2);}
 body.light .btn-p::before{background:linear-gradient(135deg,rgba(14,127,168,.12),rgba(14,127,168,.03));}
@@ -595,7 +605,7 @@ body.light .vid-channel{color:rgba(14,127,168,.45);}
   100%{opacity:0;transform:translateY(20px) scale(.88);filter:blur(6px);}
 }
 #mp.mp-closing{animation:mpSlideOut .3s ease forwards;pointer-events:none;}
-#mp.mp-open{animation:mpSlideIn .5s cubic-bezier(.16,1,.3,1) forwards;visibility:visible;pointer-events:auto;}
+#mp.mp-open{animation:mpSlideIn .5s cubic-bezier(.16,1,.3,1) both;visibility:visible;pointer-events:auto;}
 #mp.mp-open .mp-prog{opacity:0;animation:mpChildIn .4s .15s cubic-bezier(.16,1,.3,1) forwards;}
 #mp.mp-open .mp-ctrl{opacity:0;animation:mpChildIn .4s .25s cubic-bezier(.16,1,.3,1) forwards;}
 @keyframes mpChildIn{
@@ -629,12 +639,27 @@ body.light .nav-avatar:hover{border-color:rgba(14,127,168,.5);box-shadow:0 0 12p
 
   #threeCanvas{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
   html{-webkit-overflow-scrolling:touch;}
-  body{-webkit-overflow-scrolling:touch;overscroll-behavior-y:none;}
+  body{-webkit-overflow-scrolling:touch;}
 }
 @media (hover: none) and (pointer: coarse) {
   #bgImg{-webkit-transform:none !important;transform:none !important;}
   .card3d{transform:none !important;}
 }
+
+/* === MOBILE HAMBURGER NAV === */
+.hamburger{display:none;background:none;border:none;color:var(--white);cursor:pointer;padding:4px;z-index:51;}
+.hamburger svg{width:24px;height:24px;}
+@media(max-width:600px){
+  .hamburger{display:flex;}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+    background:rgba(4,13,20,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    flex-direction:column;align-items:center;justify-content:center;gap:32px;z-index:50;}
+  .nav-links.open{display:flex;}
+  .nav-links a{font-size:16px;letter-spacing:.3em;}
+  .nav-close{position:absolute;top:20px;right:20px;background:none;border:none;color:var(--white);
+    font-size:28px;cursor:pointer;padding:4px;display:block;}
+}
+.nav-close{display:none;}
   </style>
 </head>
 <body>
@@ -683,8 +708,8 @@ body.light .nav-avatar:hover{border-color:rgba(14,127,168,.5);box-shadow:0 0 12p
 
 <nav>
   <div class="nav-logo">It's <b>Mythical</b></div>
-  <div class="nav-links">
-    <a href="#">Home</a><a href="#videosSection">Videos</a><a href="#aboutSection">About</a><a href="#shortsSection">Shorts</a>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><div class="nav-links" id="navLinks">
+    <button class="nav-close" id="navClose" aria-label="Close menu">&times;</button><a href="#">Home</a><a href="#videosSection">Videos</a><a href="#aboutSection">About</a><a href="#shortsSection">Shorts</a>
   </div>
   <button id="themeToggle" class="theme-toggle" title="Toggle Light/Dark Mode" aria-label="Toggle theme">
     <div class="tt-knob">
@@ -718,8 +743,8 @@ body.light .nav-avatar:hover{border-color:rgba(14,127,168,.5);box-shadow:0 0 12p
       <div class="card3d"><span class="card3d-n">24/7</span><span class="card3d-l">Creating</span></div>
     </div>
     <div class="btns">
-      <a href="#" class="btn btn-p">&#9654;&nbsp; Watch Now</a>
-      <a href="#" class="btn btn-s">About Me</a>
+      <a href="#videosSection" class="btn btn-p">&#9654;&nbsp; Watch Now</a>
+      <a href="#aboutSection" class="btn btn-s">About Me</a>
     </div>
     <div class="socials">
       <a href="https://www.youtube.com/@Its-Mythical" target="_blank" rel="noopener" class="soc" style="--sf:4.5s;--sd:0s"><span class="soc-i">&#9654;</span><span class="soc-l">YouTube</span><span class="soc-d"></span></a>
@@ -942,12 +967,24 @@ body.light .nav-avatar:hover{border-color:rgba(14,127,168,.5);box-shadow:0 0 12p
   var toggle=document.getElementById('themeToggle');
   if(!toggle)return;
   // Restore saved preference
-  var saved=localStorage.getItem('mythicalTheme');
+  try{ var saved=localStorage.getItem('mythicalTheme');
   if(saved==='light')document.body.classList.add('light');
   toggle.addEventListener('click',function(){
     document.body.classList.toggle('light');
     var isLight=document.body.classList.contains('light');
-    localStorage.setItem('mythicalTheme',isLight?'light':'dark');
+    localStorage.setItem('mythicalTheme',isLight?'light':'dark');}catch(e){}
+  });
+})();
+/* HAMBURGER NAV */
+(function(){
+  var btn=document.getElementById('hamburgerBtn');
+  var nav=document.getElementById('navLinks');
+  var close=document.getElementById('navClose');
+  if(!btn||!nav)return;
+  btn.addEventListener('click',function(){nav.classList.add('open');});
+  if(close)close.addEventListener('click',function(){nav.classList.remove('open');});
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){nav.classList.remove('open');});
   });
 })();
 </script>
